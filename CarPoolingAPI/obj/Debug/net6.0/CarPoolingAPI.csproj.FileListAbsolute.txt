@@ -66,3 +66,5 @@ C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\ne
 C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Scrutor.dll
 C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
 C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\USER\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

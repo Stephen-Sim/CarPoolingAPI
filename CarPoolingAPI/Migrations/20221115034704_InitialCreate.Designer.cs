@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221107053718_InitialCreate")]
+    [Migration("20221115034704_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,6 +266,9 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

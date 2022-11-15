@@ -35,7 +35,7 @@ namespace CarPoolingAPI.Controllers
                     {
                         Username = request.FirstName.Trim() + " " + request.LastName.Trim(),
                         FirstName = request.FirstName,
-                        LastName = request.FirstName,
+                        LastName = request.LastName,
                         PhoneNo = request.PhoneNo,
                         Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
                     };
@@ -91,7 +91,6 @@ namespace CarPoolingAPI.Controllers
                 string username = jwt.Claims.First(c => c.Type == configuration.GetSection("Claims:Name").Value).Value;
                 string role = jwt.Claims.First(c => c.Type == configuration.GetSection("Claims:Role").Value).Value;
 
-                UserDto userDto;
                 if (role == "Driver")
                 {
                     var driver = context.Drivers.FirstOrDefault(x => x.Username == username);
@@ -169,6 +168,7 @@ namespace CarPoolingAPI.Controllers
                 if (request.IsDriver)
                 {
                     var driver = context.Drivers.FirstOrDefault(x => x.Username == request.Username.Trim() || x.PhoneNo == request.Username.Trim());
+                    request.Username = driver.Username;
 
                     if (BCrypt.Net.BCrypt.Verify(request.Password, driver.Password))
                     {
@@ -179,6 +179,7 @@ namespace CarPoolingAPI.Controllers
                 else
                 {
                     var passenger = context.Passengers.FirstOrDefault(x => x.Username == request.Username.Trim() || x.PhoneNo == request.Username.Trim());
+                    request.Username = passenger.Username;
 
                     if (BCrypt.Net.BCrypt.Verify(request.Password, passenger.Password))
                     {
@@ -312,36 +313,41 @@ namespace CarPoolingAPI.Controllers
             {
                 var driver = context.Drivers.FirstOrDefault(x => x.Username == username);
 
-                if (driver.RememberToken != idToken)
+                if (driver != null)
                 {
-                    return Unauthorized("Invalid Token.");
-                }
-                else if (driver.TokenExpires < DateTime.Now)
-                {
-                    return Unauthorized("Token expired.");
+                    if (driver.RememberToken != idToken)
+                    {
+                        return Unauthorized("Invalid Token.");
+                    }
+                    else if (driver.TokenExpires < DateTime.Now)
+                    {
+                        return Unauthorized("Token expired.");
+                    }
+
+                    string token = CreateToken(userLogin);
+                    return Ok(token);
                 }
 
-                string token = CreateToken(userLogin);
-
-                return Ok(token);
             }
             else if (role == "Passenger")
             {
 
                 var passenger = context.Passengers.FirstOrDefault(x => x.Username == username);
 
-                if (!passenger.RememberToken.Equals(idToken))
+                if (passenger != null)
                 {
-                    return Unauthorized("Invalid Token.");
-                }
-                else if (passenger.TokenExpires < DateTime.Now)
-                {
-                    return Unauthorized("Token expired.");
-                }
+                    if (!passenger.RememberToken.Equals(idToken))
+                    {
+                        return Unauthorized("Invalid Token.");
+                    }
+                    else if (passenger.TokenExpires < DateTime.Now)
+                    {
+                        return Unauthorized("Token expired.");
+                    }
 
-                string token = CreateToken(userLogin);
-
-                return Ok(token);
+                    string token = CreateToken(userLogin);
+                    return Ok(token);
+                }
             }
 
             return BadRequest("error occurred");
