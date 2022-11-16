@@ -2523,23 +2523,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {},
+    "C:\\Users\\simsh\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\CarPoolingAPI.csproj",
+      "projectUniqueName": "C:\\Users\\simsh\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\CarPoolingAPI.csproj",
       "projectName": "CarPoolingAPI",
-      "projectPath": "C:\\Users\\USER\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\CarPoolingAPI.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\obj\\",
+      "projectPath": "C:\\Users\\simsh\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\CarPoolingAPI.csproj",
+      "packagesPath": "C:\\Users\\simsh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\simsh\\Desktop\\CarPooling System\\CarPoolingAPI\\CarPoolingAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\simsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2631,7 +2631,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   },
