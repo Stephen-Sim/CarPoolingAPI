@@ -10,10 +10,10 @@ namespace CarPoolingAPI.Data
         }
 
         public DbSet<Chat> Chats { get; set; }
-        public DbSet<ChatRoom> ChatRooms { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Passenger> Passengers { get; set; }
-        public DbSet<PassengerRequest> PassengerRequests { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<TripRequest> TripRequests { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
 
@@ -27,6 +27,9 @@ namespace CarPoolingAPI.Data
                 .IsUnique();
 
             modelBuilder.Entity<Passenger>()
+               .HasIndex(x => x.PhoneNo)
+               .IsUnique();
+            modelBuilder.Entity<Passenger>()
                 .HasIndex(x => x.Username)
                 .IsUnique();
 
@@ -36,34 +39,23 @@ namespace CarPoolingAPI.Data
                 .HasForeignKey(x => x.DriverId);
 
             modelBuilder.Entity<Request>()
-                .HasOne(x => x.Vehicle)
+                .HasOne(x => x.Passenger)
                 .WithMany(x => x.Requests)
-                .HasForeignKey(x => x.VehicleId);
-
-            modelBuilder.Entity<PassengerRequest>()
-                    .HasKey(x => new { x.PassengerId, x.RequestId });
-            modelBuilder.Entity<PassengerRequest>()
-                .HasOne(x => x.Passenger)
-                .WithMany(x => x.PassengerRequests)
                 .HasForeignKey(x => x.PassengerId);
-            modelBuilder.Entity<PassengerRequest>()
-                .HasOne(x => x.Request)
-                .WithMany(x => x.PassengerRequests)
-                .HasForeignKey(x => x.RequestId);
 
-            modelBuilder.Entity<ChatRoom>()
-                .HasOne(x => x.Passenger)
-                .WithMany(x => x.ChatRooms)
-                .HasForeignKey(x => x.PassengerId);
-            modelBuilder.Entity<PassengerRequest>()
+            modelBuilder.Entity<TripRequest>()
+                .HasOne(x => x.Trip)
+                .WithMany(x => x.TripRequests)
+                .HasForeignKey(x => x.TripId);
+            modelBuilder.Entity<TripRequest>()
                 .HasOne(x => x.Request)
-                .WithMany(x => x.PassengerRequests)
+                .WithMany(x => x.TripRequests)
                 .HasForeignKey(x => x.RequestId);
 
             modelBuilder.Entity<Chat>()
-                .HasOne(x => x.ChatRoom)
+                .HasOne(x => x.TripRequest)
                 .WithMany(x => x.Chats)
-                .HasForeignKey(x => x.ChatRoomId);
+                .HasForeignKey(x => x.TripRequestId);
         }
     }
 }

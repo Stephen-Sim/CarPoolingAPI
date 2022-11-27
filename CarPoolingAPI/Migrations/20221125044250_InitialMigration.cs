@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarPoolingAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,7 @@ namespace CarPoolingAPI.Migrations
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNo = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -92,13 +92,39 @@ namespace CarPoolingAPI.Migrations
                     ToLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false),
-                    VehicleId = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PassengerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Requests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Requests_Vehicles_VehicleId",
+                        name: "FK_Requests_Passengers_PassengerId",
+                        column: x => x.PassengerId,
+                        principalTable: "Passengers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    FromLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    VehicleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trips", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Trips_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -106,54 +132,30 @@ namespace CarPoolingAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChatRooms",
+                name: "TripRequests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestId = table.Column<int>(type: "int", nullable: false),
-                    PassengerId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChatRooms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ChatRooms_Passengers_PassengerId",
-                        column: x => x.PassengerId,
-                        principalTable: "Passengers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ChatRooms_Requests_RequestId",
-                        column: x => x.RequestId,
-                        principalTable: "Requests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PassengerRequests",
-                columns: table => new
-                {
-                    PassengerId = table.Column<int>(type: "int", nullable: false),
-                    RequestId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Charges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    TripId = table.Column<int>(type: "int", nullable: false),
+                    RequestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PassengerRequests", x => new { x.PassengerId, x.RequestId });
+                    table.PrimaryKey("PK_TripRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PassengerRequests_Passengers_PassengerId",
-                        column: x => x.PassengerId,
-                        principalTable: "Passengers",
+                        name: "FK_TripRequests_Requests_RequestId",
+                        column: x => x.RequestId,
+                        principalTable: "Requests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PassengerRequests_Requests_RequestId",
-                        column: x => x.RequestId,
-                        principalTable: "Requests",
+                        name: "FK_TripRequests_Trips_TripId",
+                        column: x => x.TripId,
+                        principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,33 +168,23 @@ namespace CarPoolingAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ChatRoomId = table.Column<int>(type: "int", nullable: false)
+                    TripRequestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chats_ChatRooms_ChatRoomId",
-                        column: x => x.ChatRoomId,
-                        principalTable: "ChatRooms",
+                        name: "FK_Chats_TripRequests_TripRequestId",
+                        column: x => x.TripRequestId,
+                        principalTable: "TripRequests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChatRooms_PassengerId",
-                table: "ChatRooms",
-                column: "PassengerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChatRooms_RequestId",
-                table: "ChatRooms",
-                column: "RequestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Chats_ChatRoomId",
+                name: "IX_Chats_TripRequestId",
                 table: "Chats",
-                column: "ChatRoomId");
+                column: "TripRequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drivers_PhoneNo",
@@ -208,9 +200,10 @@ namespace CarPoolingAPI.Migrations
                 filter: "[Username] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PassengerRequests_RequestId",
-                table: "PassengerRequests",
-                column: "RequestId");
+                name: "IX_Passengers_PhoneNo",
+                table: "Passengers",
+                column: "PhoneNo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Passengers_Username",
@@ -220,8 +213,23 @@ namespace CarPoolingAPI.Migrations
                 filter: "[Username] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_VehicleId",
+                name: "IX_Requests_PassengerId",
                 table: "Requests",
+                column: "PassengerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripRequests_RequestId",
+                table: "TripRequests",
+                column: "RequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripRequests_TripId",
+                table: "TripRequests",
+                column: "TripId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_VehicleId",
+                table: "Trips",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
@@ -236,16 +244,16 @@ namespace CarPoolingAPI.Migrations
                 name: "Chats");
 
             migrationBuilder.DropTable(
-                name: "PassengerRequests");
-
-            migrationBuilder.DropTable(
-                name: "ChatRooms");
-
-            migrationBuilder.DropTable(
-                name: "Passengers");
+                name: "TripRequests");
 
             migrationBuilder.DropTable(
                 name: "Requests");
+
+            migrationBuilder.DropTable(
+                name: "Trips");
+
+            migrationBuilder.DropTable(
+                name: "Passengers");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarPoolingAPI.Models
 {
-    public class Request
+    public class Trip
     {
         public int Id { get; set; }
         [Column(TypeName = "decimal(9,6)")]
@@ -16,10 +16,8 @@ namespace CarPoolingAPI.Models
         public decimal ToLongtitude { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; }
-        public string Status { get; set; }
-        public int PassengerId { get; set; }
-        public Passenger Passenger { get; set; }
+        public int VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; }
         public ICollection<TripRequest> TripRequests { get; set; }
-
     }
 }

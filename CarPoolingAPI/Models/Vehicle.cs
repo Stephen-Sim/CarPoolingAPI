@@ -10,6 +10,6 @@
         public int DriverId{ get; set; }
         public bool IsActive { get; set; } = true;
         public Driver Driver { get; set; }
-        public ICollection<Request> Requests { get; set; }
+        public ICollection<Trip> Trips { get; set; }
     }
 }

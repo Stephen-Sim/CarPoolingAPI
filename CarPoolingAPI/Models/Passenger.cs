@@ -14,7 +14,6 @@
         public string RememberToken { get; set; } = string.Empty;
         public DateTime? TokenCreated { get; set; }
         public DateTime? TokenExpires { get; set; }
-        public ICollection<PassengerRequest> PassengerRequests { get; set; }
-        public ICollection<ChatRoom> ChatRooms { get; set; }
+        public ICollection<Request> Requests { get; set; }
     }
 }

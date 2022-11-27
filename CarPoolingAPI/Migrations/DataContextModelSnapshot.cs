@@ -30,9 +30,6 @@ namespace CarPoolingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ChatRoomId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -40,34 +37,14 @@ namespace CarPoolingAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TripRequestId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ChatRoomId");
+                    b.HasIndex("TripRequestId");
 
                     b.ToTable("Chats");
-                });
-
-            modelBuilder.Entity("CarPoolingAPI.Models.ChatRoom", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PassengerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PassengerId");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("ChatRooms");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Driver", b =>
@@ -159,7 +136,7 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("ProfileImage")
                         .HasColumnType("varbinary(max)");
@@ -179,6 +156,9 @@ namespace CarPoolingAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhoneNo")
+                        .IsUnique();
+
                     b.HasIndex("Username")
                         .IsUnique()
                         .HasFilter("[Username] IS NOT NULL");
@@ -186,32 +166,47 @@ namespace CarPoolingAPI.Migrations
                     b.ToTable("Passengers");
                 });
 
-            modelBuilder.Entity("CarPoolingAPI.Models.PassengerRequest", b =>
+            modelBuilder.Entity("CarPoolingAPI.Models.Request", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("FromLatitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<decimal>("FromLongtitude")
+                        .HasColumnType("decimal(9,6)");
+
                     b.Property<int>("PassengerId")
                         .HasColumnType("int");
-
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Charges")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PassengerId", "RequestId");
+                    b.Property<TimeSpan>("Time")
+                        .HasColumnType("time");
 
-                    b.HasIndex("RequestId");
+                    b.Property<decimal>("ToLatitude")
+                        .HasColumnType("decimal(9,6)");
 
-                    b.ToTable("PassengerRequests");
+                    b.Property<decimal>("ToLongtitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PassengerId");
+
+                    b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("CarPoolingAPI.Models.Request", b =>
+            modelBuilder.Entity("CarPoolingAPI.Models.Trip", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,7 +239,40 @@ namespace CarPoolingAPI.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("CarPoolingAPI.Models.TripRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Charges")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("TripRequests");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Vehicle", b =>
@@ -285,62 +313,54 @@ namespace CarPoolingAPI.Migrations
 
             modelBuilder.Entity("CarPoolingAPI.Models.Chat", b =>
                 {
-                    b.HasOne("CarPoolingAPI.Models.ChatRoom", "ChatRoom")
+                    b.HasOne("CarPoolingAPI.Models.TripRequest", "TripRequest")
                         .WithMany("Chats")
-                        .HasForeignKey("ChatRoomId")
+                        .HasForeignKey("TripRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ChatRoom");
-                });
-
-            modelBuilder.Entity("CarPoolingAPI.Models.ChatRoom", b =>
-                {
-                    b.HasOne("CarPoolingAPI.Models.Passenger", "Passenger")
-                        .WithMany("ChatRooms")
-                        .HasForeignKey("PassengerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarPoolingAPI.Models.Request", "Request")
-                        .WithMany("ChatRooms")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Passenger");
-
-                    b.Navigation("Request");
-                });
-
-            modelBuilder.Entity("CarPoolingAPI.Models.PassengerRequest", b =>
-                {
-                    b.HasOne("CarPoolingAPI.Models.Passenger", "Passenger")
-                        .WithMany("PassengerRequests")
-                        .HasForeignKey("PassengerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarPoolingAPI.Models.Request", "Request")
-                        .WithMany("PassengerRequests")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Passenger");
-
-                    b.Navigation("Request");
+                    b.Navigation("TripRequest");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Request", b =>
                 {
-                    b.HasOne("CarPoolingAPI.Models.Vehicle", "Vehicle")
+                    b.HasOne("CarPoolingAPI.Models.Passenger", "Passenger")
                         .WithMany("Requests")
+                        .HasForeignKey("PassengerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Passenger");
+                });
+
+            modelBuilder.Entity("CarPoolingAPI.Models.Trip", b =>
+                {
+                    b.HasOne("CarPoolingAPI.Models.Vehicle", "Vehicle")
+                        .WithMany("Trips")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("CarPoolingAPI.Models.TripRequest", b =>
+                {
+                    b.HasOne("CarPoolingAPI.Models.Request", "Request")
+                        .WithMany("TripRequests")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarPoolingAPI.Models.Trip", "Trip")
+                        .WithMany("TripRequests")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Request");
+
+                    b.Navigation("Trip");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Vehicle", b =>
@@ -354,11 +374,6 @@ namespace CarPoolingAPI.Migrations
                     b.Navigation("Driver");
                 });
 
-            modelBuilder.Entity("CarPoolingAPI.Models.ChatRoom", b =>
-                {
-                    b.Navigation("Chats");
-                });
-
             modelBuilder.Entity("CarPoolingAPI.Models.Driver", b =>
                 {
                     b.Navigation("Vehicles");
@@ -366,21 +381,27 @@ namespace CarPoolingAPI.Migrations
 
             modelBuilder.Entity("CarPoolingAPI.Models.Passenger", b =>
                 {
-                    b.Navigation("ChatRooms");
-
-                    b.Navigation("PassengerRequests");
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Request", b =>
                 {
-                    b.Navigation("ChatRooms");
+                    b.Navigation("TripRequests");
+                });
 
-                    b.Navigation("PassengerRequests");
+            modelBuilder.Entity("CarPoolingAPI.Models.Trip", b =>
+                {
+                    b.Navigation("TripRequests");
+                });
+
+            modelBuilder.Entity("CarPoolingAPI.Models.TripRequest", b =>
+                {
+                    b.Navigation("Chats");
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Vehicle", b =>
                 {
-                    b.Navigation("Requests");
+                    b.Navigation("Trips");
                 });
 #pragma warning restore 612, 618
         }
