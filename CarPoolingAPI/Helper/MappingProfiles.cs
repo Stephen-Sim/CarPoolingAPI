@@ -10,6 +10,8 @@ namespace CarPoolingAPI.Helper
         {
             CreateMap<Vehicle, VehicleDto>();
             CreateMap<VehicleDto, Vehicle>();
+            CreateMap<Request, RequestDto>();
+            CreateMap<RequestDto, Request>();
         } 
     }
 }
