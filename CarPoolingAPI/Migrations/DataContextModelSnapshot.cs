@@ -177,10 +177,14 @@ namespace CarPoolingAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FromAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("FromLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("FromLongtitude")
+                    b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<int>("PassengerId")
@@ -193,10 +197,14 @@ namespace CarPoolingAPI.Migrations
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
+                    b.Property<string>("ToAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ToLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("ToLongtitude")
+                    b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.HasKey("Id");
@@ -217,19 +225,27 @@ namespace CarPoolingAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FromAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("FromLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("FromLongtitude")
+                    b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
+                    b.Property<string>("ToAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ToLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("ToLongtitude")
+                    b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<int>("VehicleId")

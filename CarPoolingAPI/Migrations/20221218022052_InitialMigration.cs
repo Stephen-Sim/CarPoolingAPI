@@ -87,9 +87,11 @@ namespace CarPoolingAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
-                    FromLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    FromLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    FromAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ToLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
-                    ToLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -113,9 +115,11 @@ namespace CarPoolingAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
-                    FromLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    FromLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    FromAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ToLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
-                    ToLongtitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
+                    ToAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false),
                     VehicleId = table.Column<int>(type: "int", nullable: false)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221125044250_InitialMigration")]
+    [Migration("20221218022052_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,10 +179,14 @@ namespace CarPoolingAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FromAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("FromLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("FromLongtitude")
+                    b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<int>("PassengerId")
@@ -195,10 +199,14 @@ namespace CarPoolingAPI.Migrations
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
+                    b.Property<string>("ToAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ToLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("ToLongtitude")
+                    b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.HasKey("Id");
@@ -219,19 +227,27 @@ namespace CarPoolingAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FromAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("FromLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("FromLongtitude")
+                    b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
+                    b.Property<string>("ToAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ToLatitude")
                         .HasColumnType("decimal(9,6)");
 
-                    b.Property<decimal>("ToLongtitude")
+                    b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<int>("VehicleId")
