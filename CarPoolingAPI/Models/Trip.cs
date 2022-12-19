@@ -6,6 +6,7 @@ namespace CarPoolingAPI.Models
     public class Trip
     {
         public int Id { get; set; }
+        public string TripNumber { get; set; }
         [Column(TypeName = "decimal(9,6)")]
         public decimal FromLatitude { get; set; }
         [Column(TypeName = "decimal(9,6)")]
@@ -18,6 +19,7 @@ namespace CarPoolingAPI.Models
         public string ToAddress { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; }
+        public string Status { get; set; }
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
         public ICollection<TripRequest> TripRequests { get; set; }
