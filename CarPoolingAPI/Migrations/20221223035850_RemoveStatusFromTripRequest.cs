@@ -4,23 +4,23 @@
 
 namespace CarPoolingAPI.Migrations
 {
-    public partial class AddStatusToTrip : Migration
+    public partial class RemoveStatusFromTripRequest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.DropColumn(
                 name: "Status",
-                table: "Trips",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                table: "TripRequests");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AddColumn<string>(
                 name: "Status",
-                table: "Trips");
+                table: "TripRequests",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
     }
 }

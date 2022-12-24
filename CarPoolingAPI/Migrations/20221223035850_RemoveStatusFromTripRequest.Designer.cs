@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221218073456_AddChargesToRequest")]
-    partial class AddChargesToRequest
+    [Migration("20221223035850_RemoveStatusFromTripRequest")]
+    partial class RemoveStatusFromTripRequest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -247,6 +247,10 @@ namespace CarPoolingAPI.Migrations
                     b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
@@ -259,6 +263,10 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
+
+                    b.Property<string>("TripNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
@@ -283,10 +291,6 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TripId")
                         .HasColumnType("int");

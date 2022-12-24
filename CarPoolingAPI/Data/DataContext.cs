@@ -25,6 +25,9 @@ namespace CarPoolingAPI.Data
             modelBuilder.Entity<Driver>()
                 .HasIndex(x => x.Username)
                 .IsUnique();
+            modelBuilder.Entity<Vehicle>()
+                .HasIndex(x => x.PlatNo)
+                .IsUnique();
 
             modelBuilder.Entity<Passenger>()
                .HasIndex(x => x.PhoneNo)

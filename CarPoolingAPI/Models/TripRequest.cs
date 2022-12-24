@@ -6,7 +6,6 @@ namespace CarPoolingAPI.Models
     public class TripRequest
     {
         public int Id { get; set; }
-        public string Status { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Rating { get; set; }
         public int? TripId { get; set; }

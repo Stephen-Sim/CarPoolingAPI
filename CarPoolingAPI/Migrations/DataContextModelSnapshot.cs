@@ -290,10 +290,6 @@ namespace CarPoolingAPI.Migrations
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("TripId")
                         .HasColumnType("int");
 
@@ -333,11 +329,14 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<string>("PlatNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
+
+                    b.HasIndex("PlatNo")
+                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });

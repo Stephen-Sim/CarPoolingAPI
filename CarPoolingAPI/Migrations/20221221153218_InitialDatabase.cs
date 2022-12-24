@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarPoolingAPI.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,14 +86,17 @@ namespace CarPoolingAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FromLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     FromLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     FromAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ToLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     ToLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     ToAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfPassengers = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Charges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PassengerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -114,6 +117,7 @@ namespace CarPoolingAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TripNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FromLatitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     FromLongitude = table.Column<decimal>(type: "decimal(9,6)", nullable: false),
                     FromAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -122,6 +126,7 @@ namespace CarPoolingAPI.Migrations
                     ToAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VehicleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -142,9 +147,8 @@ namespace CarPoolingAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Charges = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    TripId = table.Column<int>(type: "int", nullable: false),
+                    TripId = table.Column<int>(type: "int", nullable: true),
                     RequestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -160,8 +164,7 @@ namespace CarPoolingAPI.Migrations
                         name: "FK_TripRequests_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

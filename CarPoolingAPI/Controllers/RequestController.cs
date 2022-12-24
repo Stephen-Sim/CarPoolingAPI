@@ -57,7 +57,7 @@ namespace CarPoolingAPI.Controllers
                 DiplayFromAddress = x.FromAddress.Length > 35 ? x.FromAddress.Substring(0, 30) + "...." : x.FromAddress,
                 DisplayToAddress = x.ToAddress.Length > 35 ? x.ToAddress.Substring(0, 30) + "...." : x.ToAddress,
                 DisplayTime = $"{x.Date.ToString("dd/MM/yyyy")} {x.Time} - "
-            }); ;
+            });
 
 
             if (requests != null)

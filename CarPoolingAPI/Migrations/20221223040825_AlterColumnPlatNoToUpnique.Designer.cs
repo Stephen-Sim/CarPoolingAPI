@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221218022052_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221223040825_AlterColumnPlatNoToUpnique")]
+    partial class AlterColumnPlatNoToUpnique
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,6 +176,9 @@ namespace CarPoolingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<decimal>("Charges")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -189,8 +192,15 @@ namespace CarPoolingAPI.Migrations
                     b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
+                    b.Property<int>("NumberOfPassengers")
+                        .HasColumnType("int");
+
                     b.Property<int>("PassengerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RequestNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -237,6 +247,10 @@ namespace CarPoolingAPI.Migrations
                     b.Property<decimal>("FromLongitude")
                         .HasColumnType("decimal(9,6)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("time");
 
@@ -249,6 +263,10 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<decimal>("ToLongitude")
                         .HasColumnType("decimal(9,6)");
+
+                    b.Property<string>("TripNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
@@ -268,20 +286,13 @@ namespace CarPoolingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal>("Charges")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TripId")
+                    b.Property<int?>("TripId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -320,11 +331,14 @@ namespace CarPoolingAPI.Migrations
 
                     b.Property<string>("PlatNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
+
+                    b.HasIndex("PlatNo")
+                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });
@@ -372,9 +386,7 @@ namespace CarPoolingAPI.Migrations
 
                     b.HasOne("CarPoolingAPI.Models.Trip", "Trip")
                         .WithMany("TripRequests")
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TripId");
 
                     b.Navigation("Request");
 
