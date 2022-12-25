@@ -38,7 +38,7 @@ namespace CarPoolingAPI.Controllers
             if (passenger == null)
                 return Unauthorized();
 
-            var requests = context.Requests.Where(x => x.PassengerId == passenger.Id).OrderBy(x => x.Date).ThenBy(x => x.Time).ToList().Select(x => new
+            var requests = context.Requests.Where(x => x.PassengerId == passenger.Id).OrderByDescending(x => x.Date).ThenByDescending(x => x.Time).ToList().Select(x => new
             {
                 x.Id,
                 x.RequestNumber,

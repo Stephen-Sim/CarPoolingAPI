@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarPoolingAPI.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,7 +63,7 @@ namespace CarPoolingAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlatNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlatNo = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     DriverId = table.Column<int>(type: "int", nullable: false),
@@ -146,7 +146,6 @@ namespace CarPoolingAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     TripId = table.Column<int>(type: "int", nullable: true),
                     RequestId = table.Column<int>(type: "int", nullable: false)
@@ -227,7 +226,8 @@ namespace CarPoolingAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TripRequests_RequestId",
                 table: "TripRequests",
-                column: "RequestId");
+                column: "RequestId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TripRequests_TripId",
@@ -243,6 +243,12 @@ namespace CarPoolingAPI.Migrations
                 name: "IX_Vehicles_DriverId",
                 table: "Vehicles",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_PlatNo",
+                table: "Vehicles",
+                column: "PlatNo",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

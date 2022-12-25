@@ -295,7 +295,8 @@ namespace CarPoolingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestId");
+                    b.HasIndex("RequestId")
+                        .IsUnique();
 
                     b.HasIndex("TripId");
 
@@ -377,8 +378,8 @@ namespace CarPoolingAPI.Migrations
             modelBuilder.Entity("CarPoolingAPI.Models.TripRequest", b =>
                 {
                     b.HasOne("CarPoolingAPI.Models.Request", "Request")
-                        .WithMany("TripRequests")
-                        .HasForeignKey("RequestId")
+                        .WithOne("TripRequest")
+                        .HasForeignKey("CarPoolingAPI.Models.TripRequest", "RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -414,7 +415,8 @@ namespace CarPoolingAPI.Migrations
 
             modelBuilder.Entity("CarPoolingAPI.Models.Request", b =>
                 {
-                    b.Navigation("TripRequests");
+                    b.Navigation("TripRequest")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarPoolingAPI.Models.Trip", b =>

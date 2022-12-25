@@ -25,7 +25,7 @@ namespace CarPoolingAPI.Models
         public string Status { get; set; }
         public int PassengerId { get; set; }
         public Passenger Passenger { get; set; }
-        public ICollection<TripRequest> TripRequests { get; set; }
+        public TripRequest TripRequest { get; set; }
 
     }
 }

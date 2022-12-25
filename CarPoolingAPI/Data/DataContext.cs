@@ -41,24 +41,30 @@ namespace CarPoolingAPI.Data
                 .WithMany(x => x.Vehicles)
                 .HasForeignKey(x => x.DriverId);
 
-            modelBuilder.Entity<Request>()
-                .HasOne(x => x.Passenger)
-                .WithMany(x => x.Requests)
-                .HasForeignKey(x => x.PassengerId);
+            modelBuilder.Entity<Trip>()
+                .HasOne(x => x.Vehicle)
+                .WithMany(x => x.Trips)
+                .HasForeignKey(x => x.VehicleId);
 
             modelBuilder.Entity<TripRequest>()
                 .HasOne(x => x.Trip)
                 .WithMany(x => x.TripRequests)
                 .HasForeignKey(x => x.TripId);
-            modelBuilder.Entity<TripRequest>()
-                .HasOne(x => x.Request)
-                .WithMany(x => x.TripRequests)
-                .HasForeignKey(x => x.RequestId);
 
             modelBuilder.Entity<Chat>()
                 .HasOne(x => x.TripRequest)
                 .WithMany(x => x.Chats)
                 .HasForeignKey(x => x.TripRequestId);
+
+            modelBuilder.Entity<Request>()
+                .HasOne(x => x.TripRequest)
+                .WithOne(x => x.Request)
+                .HasForeignKey<TripRequest>(x => x.RequestId);
+            
+            modelBuilder.Entity<Request>()
+                .HasOne(x => x.Passenger)
+                .WithMany(x => x.Requests)
+                .HasForeignKey(x => x.PassengerId);
         }
     }
 }
