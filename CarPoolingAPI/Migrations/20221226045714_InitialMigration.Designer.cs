@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221225095620_InitialMigration")]
+    [Migration("20221226045714_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,8 +286,8 @@ namespace CarPoolingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");

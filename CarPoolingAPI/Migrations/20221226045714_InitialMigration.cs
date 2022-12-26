@@ -146,7 +146,7 @@ namespace CarPoolingAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Rating = table.Column<int>(type: "int", nullable: true),
                     TripId = table.Column<int>(type: "int", nullable: true),
                     RequestId = table.Column<int>(type: "int", nullable: false)
                 },

@@ -34,8 +34,8 @@ namespace CarPoolingAPI.Controllers
                     var driver = new Driver
                     {
                         Username = request.FirstName.Trim() + " " + request.LastName.Trim(),
-                        FirstName = request.FirstName,
-                        LastName = request.LastName,
+                        FirstName = request.FirstName.Trim(),
+                        LastName = request.LastName.Trim(),
                         PhoneNo = request.PhoneNo,
                         Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
                     };
@@ -57,8 +57,8 @@ namespace CarPoolingAPI.Controllers
                     var passenger = new Passenger
                     {
                         Username = request.FirstName.Trim() + " " + request.LastName.Trim(),
-                        FirstName = request.FirstName,
-                        LastName = request.LastName,
+                        FirstName = request.FirstName.Trim(),
+                        LastName = request.LastName.Trim(),
                         PhoneNo = request.PhoneNo,
                         Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
                     };

@@ -284,8 +284,8 @@ namespace CarPoolingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");

@@ -149,7 +149,7 @@ namespace CarPoolingAPI.Controllers
             if (trip == null)
                 return BadRequest();
 
-            var requests = context.Requests.Include(x => x.Passenger).Include(x => x.TripRequest).Where(x => x.TripRequest.Id == trip.Id).ToList();
+            var requests = context.Requests.Include(x => x.Passenger).Include(x => x.TripRequest).Where(x => x.TripRequest.TripId == trip.Id).ToList();
 
             var SelectedRequests = requests.Select(x => new
             {
@@ -418,7 +418,7 @@ namespace CarPoolingAPI.Controllers
                 if (trip == null)
                     return BadRequest();
 
-                var rating = trip.TripRequests.Sum(x => x.Rating)?.ToString("0.00") + " ⭐";
+                var rating = trip.TripRequests.Average(x => x.Rating)?.ToString("0.00") + " ⭐";
                 var earned = 0.00m;
 
                 foreach (var item in trip.TripRequests)
