@@ -154,6 +154,7 @@ namespace CarPoolingAPI.Controllers
             var SelectedRequests = requests.Select(x => new
             {
                 x.Id,
+                TripRequestId = x.TripRequest.Id,
                 x.RequestNumber,
                 x.FromLatitude,
                 x.FromLongitude,

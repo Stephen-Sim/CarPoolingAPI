@@ -143,3 +143,10 @@ C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\obj\Debug\n
 C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\obj\Debug\net6.0\CarPoolingAPI.pdb
 C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\obj\Debug\net6.0\CarPoolingAPI.genruntimeconfig.cache
 C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\obj\Debug\net6.0\ref\CarPoolingAPI.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Microsoft.Owin.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Microsoft.Owin.Security.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\simsh\Desktop\CarPooling System\CarPoolingAPI\CarPoolingAPI\bin\Debug\net6.0\Owin.dll

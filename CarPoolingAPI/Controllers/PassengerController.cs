@@ -22,12 +22,5 @@ namespace CarPoolingAPI.Controllers
         {
             this.context = context;
         }
-
-        [HttpPost("test")]
-        public IActionResult test(string abc)
-        {
-            return Ok(abc);
-        }
-
     }
 }
