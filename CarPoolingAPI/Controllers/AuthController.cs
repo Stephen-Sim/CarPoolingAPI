@@ -24,6 +24,20 @@ namespace CarPoolingAPI.Controllers
             this.configuration = configuration;
         }
 
+        [HttpGet("ConnectToServer")]
+        public IActionResult ConnectToServer()
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                return BadRequest();
+            }
+        }
+
         [HttpPost("Register")]
         public IActionResult Resgister(UserRegister request)
         {
