@@ -174,6 +174,7 @@ namespace CarPoolingAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDriverMessage = table.Column<bool>(type: "bit", nullable: false),
                     TripRequestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

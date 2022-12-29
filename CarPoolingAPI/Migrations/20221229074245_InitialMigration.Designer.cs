@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPoolingAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221226103537_DeleteColumnDateTime")]
-    partial class DeleteColumnDateTime
+    [Migration("20221229074245_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,12 @@ namespace CarPoolingAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDriverMessage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Message")
                         .IsRequired()
