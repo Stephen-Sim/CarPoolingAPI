@@ -94,7 +94,7 @@ namespace CarPoolingAPI.Controllers
 
                 var driver = context.Drivers.FirstOrDefault(x => x.Username == username);
 
-                if (driver == null && driver.Id != vehicle.Id)
+                if (driver == null)
                     return Unauthorized();
 
                 var whicleVehicle = this.context.Vehicles.FirstOrDefault(x => x.Id == vehicle.Id);

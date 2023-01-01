@@ -259,6 +259,7 @@ namespace CarPoolingAPI.Controllers
                     DriverName = request.TripRequest.Trip.Vehicle.Driver.FirstName + " " + request.TripRequest.Trip.Vehicle.Driver.LastName,
                     DriverImage = request.TripRequest.Trip.Vehicle.Driver.ProfileImage,
                     CarName = request.TripRequest.Trip.Vehicle.Name,
+                    CarColor = request.TripRequest.Trip.Vehicle.Color,
                     CarPlatNo = request.TripRequest.Trip.Vehicle.PlatNo,
                     Rating = rating?.ToString("0.00"),
                     Date = request.Date.ToString("dd/MM/yyyy"),
