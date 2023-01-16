@@ -80,13 +80,13 @@ namespace CarPoolingAPI.Controllers
 
                 if (schecduleId == 1)
                 {
-
                     var info = ifExist.Where(x => x.Date >= DateTime.Today.AddDays(-7) && x.Date <= DateTime.Today).GroupBy(x => x.Date).Select(x => new
                     {
                         DayOfWeek = x.Key.DayOfWeek.ToString(),
                         TotalPassengers = ifExist.Where(y => y.Date == x.Key).Sum(y => y.NumberOfPassengers),
-                        TotalEarned = ifExist.Where(y => y.Date == x.Key).Sum(y => y.Charges)
-                    }).ToList();
+                        TotalEarned = ifExist.Where(y => y.Date == x.Key).Sum(y => y.Charges),
+                        x.Key.Date
+                    }).OrderBy(x => x.Date).ToList();
 
                     return Ok(info);
                 }
